@@ -1,0 +1,156 @@
+﻿@page
+@model Budgetoo.Pages.AddEnvelopesModel
+@{
+    ViewData["Title"] = "Add envelopes";
+}
+
+<body>
+    <div class="container">
+    <h1>Add Envelopes</h1>
+    <div id="Page-Container">
+        <div class="form-enevlopes-container">
+
+            @if (Model.errorMessage.Length > 0)
+            {
+                <div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                    <strong>@Model.errorMessage</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss=alert aria-label="Close"></button>
+                </div>
+            }
+            else if (Model.successMessage.Length > 0)
+            {
+                <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                    <strong>@Model.successMessage</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss=alert aria-label="Close"></button>
+                </div>
+            }
+            <form method="post">
+                <div class="section" id="Financial-Resources">
+                    <div class="section-title"><span>Financial Resource (Income)</span></div>
+                    <div class="form-row" id="form-row-Financial-Resources">
+                        <div>
+                            <label for="Financial-Resources-Amount">Amount</label>
+                            <input type="number" id="Financial-Resources-Amount" placeholder="Enter your income" step="0.01" name="FinancialResource-Income">
+                            @* asp-for=FinancialResourceRequest.Income>
+                            <span asp-validation-for=FinancialResourceRequest.Income class="text-danger"></span> *@
+                        </div>
+                        <div>
+                            <label for="Financial-Resources-SalaryDate">Salary Date</label>
+                            <input type="date" id="Financial-Resources-SalaryDate" name="FinancialResource-SalaryDate">
+                            @*asp-for=FinancialResourceRequest.SalaryDate>
+                            <span asp-validation-for=FinancialResourceRequest.SalaryDate class="text-danger"></span> *@
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section" id="Monthly-Mandatory-Expenses">
+                    <div class="section-title"><span>Monthly Mandatory Expenses</span></div>
+
+                    <div class="form-row" id="form-row-Monthly-Mandatory-Expenses">
+                        <div>
+                            <label for="Monthly-Mandatory-Expenses-Name">Name</label>
+                            <input type="text" id="Monthly-Mandatory-Expenses-Name" placeholder="Enter a name" name="Monthly-Mandatory-Expenses-Name">
+                        </div>
+                        <div>
+                            <label for="Monthly-Mandatory-Expenses-Amount">Amount</label>
+                            <input type="number" id="Monthly-Mandatory-Expenses-Amount" placeholder="Enter an amount" step="0.01" name="Monthly-Mandatory-Expenses-Amount">
+                        </div>
+                    </div>
+
+                    <div class="dynamic-input-container" id="Monthly-Mandatory-Expenses-dynamicInput">
+                        <button type="button" class="btn-add" onclick="addInput(document.getElementById('Monthly-Mandatory-Expenses'),
+                                                                        document.getElementById('Monthly-Mandatory-Expenses-dynamicInput'),
+                                                                        2)">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section" id="Monthly-Debts">
+                    <div class="section-title"><span>Monthly Debts</span></div>
+                    <div class="form-row" id="form-row-Monthly-Debts">
+                        <div>
+                            <label for="Monthly-Debts-Name">Name</label>
+                            <input type="text" id="Monthly-Debts-Name" placeholder="Enter a name" asp-for=MonthlyDebtRequest.Name>
+                        </div>
+                        <div>
+                            <label for="Monthly-Debts-Amount">Amount</label>
+                            <input type="number" id="Monthly-Debts-Amount" placeholder="Enter an amount" step="0.01" asp-for=MonthlyDebtRequest.Amount>
+                        </div>
+                        <div>
+                            <label for="Monthly-Debts-DueTo">Due to</label>
+                            <input type="date" id="Monthly-Debts-DueTo" asp-for=MonthlyDebtRequest.DueTo>
+                        </div>
+                    </div>
+
+                    <div class="dynamic-input-container" id="Monthly-Debts-dynamicInput">
+                        <button type="button" class="btn-add" onclick="addInput(document.getElementById('Monthly-Debts'),
+                                                                      document.getElementById('Monthly-Debts-dynamicInput'),
+                                                                      3)">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section" id="Monthly-Personal-Expenses">
+                    <div class="section-title"><span>Monthly Personal Expenses</span></div>
+                    <div class="form-row" id="form-row-Monthly-Personal-Expenses">
+                        <div>
+                            <label for="Monthly-Personal-Expenses-Amount">Amount</label>
+                            <input type="number" id="Monthly-Personal-Expenses-Amount" placeholder="Enter an amount" step="0.01" asp-for=MonthlyPersonalExpenseRequest.Amount>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section" id="Goals">
+                    <div class="section-title"><span>Goals</span></div>
+                    <div class="form-row" id="form-row-Goals">
+                        <div>
+                            <label for="Goals-Name">Name</label>
+                            <input type="text" id="Goals-Name" placeholder="Enter a name" asp-for=GoalRequest.Name>
+                        </div>
+                        <div>
+                            <label for="Goals-Amount">Amount</label>
+                            <input type="number" id="Goals-Amount" placeholder="Enter an amount" step="0.01" asp-for=GoalRequest.Amount>
+                        </div>
+                        <div>
+                            <label for="Goals-DueTo">Due to</label>
+                            <input type="date" id="Goals-DueTo" asp-for=GoalRequest.DueTo>
+                        </div>
+                    </div>
+
+                    <div class="dynamic-input-container" id="Goals-dynamicInput">
+                        <button type="button" class="btn-add" onclick="addInput(document.getElementById('Goals'),
+                                                                      document.getElementById('Goals-dynamicInput'),
+                                                                      3)">
+                            +
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="buton">Save Changes</button>
+            </form>
+        </div>
+
+        <div class="budget-container">
+            <h2>Budget</h2>
+            <div class="form-group">
+                <label for="Monthly-Budget">Monthly budget:</label>
+                <input type="number" id="Monthly-Budget" name="Monthly Budget" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="Monthly-Expenses">Monthly Expenses:</label>
+                <input type="number" id="Monthly-Expenses" name="Monthly Expenses" step="0.01">
+            </div>
+            <div class="form-group icon">
+                <img src="~/images/money.png" alt="Budget Icon">
+                <label for="Budgeted">Budgeted:</label>
+                <input type="number" id="Budgeted" step="0.01">
+            </div>
+            <div class="button-group">
+                <button type="submit" class="btn save">Save Changes</button>
+                <button type="reset" class="btn cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>

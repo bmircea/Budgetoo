@@ -1,0 +1,202 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    /*font-size: 14px;*/
+    background: #f4f4f4;
+}
+
+h1 {
+    padding-left: 40px;
+    font-weight: bold;
+}
+
+#Page-Container {
+    display: flex;
+    align-items: flex-start;
+}
+
+/*.container {
+    margin-left: 0;
+}*/
+
+.form-enevlopes-container {
+    width: 900px;
+    margin-left: 40px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid black;
+}
+
+.form-enevlopes-container form input{
+    height: 40px;
+    width: 170px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    width: 100%;
+    padding: 10px 0px 10px 10px;
+    margin-top: 10px;
+    background-color: gray;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+
+.form-row {
+    display: grid;
+    grid-gap: 30px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+#form-row-Financial-Resources {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#form-row-Monthly-Mandatory-Expenses {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#form-row-Monthly-Debts {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+#form-row-Monthly-Personal-Expenses {
+    grid-template-columns: 1fr;
+}
+
+#form-row-Goals {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.form-row label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    text-align: left;
+}
+
+.form-row input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#form-row-Financial-Resources > div:first-child {
+    position: relative;
+}
+
+#Financial-Resources-Income {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* -------------------------------------- */
+
+.btn-add {
+    color: green;
+    font-size: 25px;
+    width: 29px;
+    height: 37.5px;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.btn-remove {
+    width: 29px;
+    height: 42.5px;
+    color: red;
+    font-size: 24px;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+/* -------------------------------------------------- */
+
+.budget-container {
+    width: 500px;
+    margin-top: 0;
+    margin-left: 120px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 30px;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group.icon {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group.icon input{
+    height: 35.6px;
+    margin-top: 12px;
+}
+
+.form-group label {
+    display: block;
+    margin-top: 17px;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group img {
+    margin-right: 10px;
+}
+
+.button-group {
+    text-align: center;
+}
+
+.button-group .btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+.button-group .save {
+    background-color: #8e44ad;
+    color: white;
+}
+
+.button-group .cancel {
+    background-color: red;
+    color: white;
+}
