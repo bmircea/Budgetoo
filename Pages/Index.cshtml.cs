@@ -15,9 +15,15 @@ namespace Budgetoo.Pages
             currentTab = "_Tab1";
         }
 
-        public void OnGet()
+        public IActionResult? OnGet()
         {
+            
+            if (User.HasClaim("IsAdmin", bool.TrueString))
+            {
+                return new RedirectToPageResult("/AdminTips");
+            }
 
+            return Page();
         }
     }
 }

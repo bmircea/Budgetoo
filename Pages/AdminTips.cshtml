@@ -1,0 +1,47 @@
+﻿@page
+@model Budgetoo.Pages.AdminTipsModel
+@using Budgetoo.Models;
+@{
+	ViewData["Title"] = "Tips";
+}
+
+@if (User.HasClaim("IsAdmin", bool.TrueString))
+{
+	<table class="table mt-5">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Text</th>
+			</tr>
+		</thead>
+
+		
+		<tbody>
+	@foreach (var tip in Model.Tips)
+	{
+			<tr>
+				<td>@tip.ID</td>
+				<td>@tip.Text</td>
+				<td>
+					<form method="post" asp-page-handler="Delete" asp-route-id="@tip.ID">
+						<button class="btn btn-danger">Delete</button>
+					</form>
+				</td>
+			</tr>
+	}
+			</tbody>
+	</table>
+
+		<form method="post">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div class="form-group">
+			<label asp-for="NewTip.Text" class="control-label"></label>
+			<input asp-for="NewTip.Text" class="form-control" />
+			<span asp-validation-for="NewTip.Text" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<input type="submit" value="Create" class="btn btn-primary" />
+		</div>
+		</form>
+}
+

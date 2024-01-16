@@ -1,33 +1,91 @@
-﻿<!DOCTYPE html>
+﻿@using Budgetoo.Areas.Identity.Data;
+@inject SignInManager<BudgetooUser> SignInManager;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Budgetoo</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Budgetoo.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Budgetoo</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
+        <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <a class="navbar-brand" asp-area="" asp-page="/Index">Budgetoo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-start">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                <ul class="navbar-nav">
+                    @if (Context.User.HasClaim("IsAdmin", bool.TrueString))
+                    {
+                    <li class="nav-item dropdown d-sm-inline-flex">
+                        <div class="d-flex">
+                            <img src="~/images/options.svg" class="img-fluid" width="40" height="40"/>
+                        </div>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Settings
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-area="" asp-page="/AdminTips">Tips</a></li>
+                        </ul>
+                    </li>
+                    } else
+                    {
+                    <li class="nav-item dropdown d-sm-inline-flex">
+                        <div class="d-flex">
+                            <img src="~/images/transactions.svg" class="img-fluid" width="40" height="40"/>
+                        </div>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Transactions
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-area="" asp-page="/Index">See transactions</a></li>
+                            <li><a class="dropdown-item" href="#">Add transactions</a></li>
+                        </ul>
+                    </li>
+                    <li class="vr"></li>
+
+                    <li class="nav-item dropdown d-sm-inline-flex">
+                            <div class="d-flex">
+                                <img src="~/images/envelopes.svg" class="img-fluid" width="60" height="20" />
+                            </div>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Envelopes
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-area="" asp-page="/Envelopes">See envelopes</a></li>
+                            <li><a class="dropdown-item" href="#">Add envelopes</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="vr"></li>
+
+                    <li class="nav-item dropdown d-sm-inline-flex">
+                        <div class="d-flex">
+                            <img src="~/images/reports.svg" class="img-fluid" width="40" height="40"/>
+                        </div>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Reports
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-area="" asp-page="/Reports">See envelopes</a></li>
+                            <li><a class="dropdown-item" href="#">Add envelopes</a></li>
+                        </ul>
+                    </li>
+                    }
+                </ul>
+                }
+            </div>
+            
+            <div class="d-sm-inline-flex justify-content-end">
+                <partial class ="position-absolute end-0" name="_LoginPartial" />
             </div>
         </nav>
     </header>
@@ -37,14 +95,15 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" style="color:white">
         <div class="container">
             &copy; 2024 - Budgetoo - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
